@@ -1,0 +1,63 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --background: 195 45% 98%;
+  --foreground: 205 36% 18%;
+  --card: 0 0% 100%;
+  --card-foreground: 205 36% 18%;
+  --popover: 0 0% 100%;
+  --popover-foreground: 205 36% 18%;
+  --primary: 194 74% 34%;
+  --primary-foreground: 0 0% 100%;
+  --secondary: 189 33% 92%;
+  --secondary-foreground: 201 40% 22%;
+  --muted: 190 28% 94%;
+  --muted-foreground: 202 18% 42%;
+  --accent: 159 42% 89%;
+  --accent-foreground: 160 52% 22%;
+  --destructive: 2 75% 57%;
+  --border: 190 18% 86%;
+  --input: 189 22% 88%;
+  --ring: 194 74% 34%;
+  --success: 154 50% 42%;
+  --warning: 33 92% 52%;
+  --font-sans: "Sora";
+}
+
+* {
+  border-color: hsl(var(--border));
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  background:
+    radial-gradient(circle at top, rgba(132, 213, 227, 0.24), transparent 36%),
+    linear-gradient(180deg, #f8fcfd 0%, #eef7f8 100%);
+  color: hsl(var(--foreground));
+  min-height: 100vh;
+}
+
+@layer base {
+  h1, h2, h3, h4 {
+    @apply tracking-tight;
+  }
+
+  h1 {
+    @apply text-4xl font-semibold md:text-5xl;
+  }
+
+  h2 {
+    @apply text-2xl font-semibold md:text-3xl;
+  }
+}
+
+@layer utilities {
+  .panel-shell {
+    @apply rounded-3xl border bg-white/90 shadow-card backdrop-blur;
+  }
+}
