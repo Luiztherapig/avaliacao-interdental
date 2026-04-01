@@ -4,6 +4,8 @@ import { SurveyForm } from "@/components/public/survey-form";
 import { DEFAULT_UNIT_SLUG } from "@/lib/constants/site";
 import { getPublicBootstrap } from "@/lib/queries/public";
 
+export const dynamic = "force-dynamic";
+
 export default async function SurveyPage() {
   const data = await getPublicBootstrap(DEFAULT_UNIT_SLUG);
 
