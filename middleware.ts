@@ -1,5 +1,5 @@
-import { type NextRequest, NextResponse } from "next/server";
 import { createServerClient } from "@supabase/ssr";
+import { type NextRequest, NextResponse } from "next/server";
 
 type CookieToSet = {
   name: string;
@@ -18,8 +18,8 @@ type CookieToSet = {
 export async function middleware(request: NextRequest) {
   let response = NextResponse.next({
     request: {
-      headers: request.headers,
-    },
+      headers: request.headers
+    }
   });
 
   const supabase = createServerClient(
@@ -37,23 +37,31 @@ export async function middleware(request: NextRequest) {
 
           response = NextResponse.next({
             request: {
-              headers: request.headers,
-            },
+              headers: request.headers
+            }
           });
 
           cookiesToSet.forEach(({ name, value, options }) => {
             response.cookies.set(name, value, options);
           });
-        },
-      },
+        }
+      }
     }
   );
 
-  await supabase.auth.getUser();
+  const {
+    data: { user }
+  } = await supabase.auth.getUser();
+
+  if (!user) {
+    const loginUrl = new URL("/login", request.url);
+    loginUrl.searchParams.set("redirectTo", request.nextUrl.pathname);
+    return NextResponse.redirect(loginUrl);
+  }
 
   return response;
 }
 
 export const config = {
-  matcher: ["/((?!_next/static|_next/image|favicon.ico).*)"],
+  matcher: ["/admin/:path*"]
 };
