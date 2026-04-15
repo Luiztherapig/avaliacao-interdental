@@ -1,4 +1,4 @@
-import { redirect } from "next/navigation";
+import { notFound } from "next/navigation";
 
 import { SurveyForm } from "@/components/public/survey-form";
 import { DEFAULT_UNIT_SLUG } from "@/lib/constants/site";
@@ -9,8 +9,8 @@ export const dynamic = "force-dynamic";
 export default async function SurveyPage() {
   const data = await getPublicBootstrap(DEFAULT_UNIT_SLUG);
 
-  if (!data || !data.questionnaire || !data.settings.public_form_enabled) {
-    redirect("/");
+  if (!data || !data.questionnaire) {
+    notFound();
   }
 
   return (

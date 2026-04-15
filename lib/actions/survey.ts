@@ -1,6 +1,7 @@
 import { createHash, randomUUID } from "crypto";
 
 import { classifySubmission, detectCriticalReason } from "@/lib/actions/classification";
+import { shouldUseLocalPublicFallback, submitLocalSurvey } from "@/lib/dev/public-fallback";
 import { sendCriticalAlertEmail } from "@/lib/email/send-critical-alert";
 import { createAdminClient } from "@/lib/supabase/admin";
 import type { PublicQuestion } from "@/lib/types/database";
@@ -10,6 +11,10 @@ export async function submitSurvey(
   input: PublicSurveyInput,
   metadata: { userAgent?: string; ip?: string }
 ) {
+  if (shouldUseLocalPublicFallback()) {
+    return submitLocalSurvey(input, metadata);
+  }
+
   const supabase = createAdminClient();
 
   const { data: unit } = await supabase
