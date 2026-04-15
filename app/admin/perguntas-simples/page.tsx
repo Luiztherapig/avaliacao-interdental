@@ -1,7 +1,7 @@
-import { createClient } from "@/lib/supabase/client";
+import { createClient } from "@/lib/supabase/server";
 
 export default async function PerguntasSimplesPage() {
-  const supabase = createClient();
+  const supabase = await createClient();
 
   const { data: perguntas } = await supabase
     .from("questions")
