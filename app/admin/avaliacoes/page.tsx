@@ -1,3 +1,5 @@
+export const dynamic = "force-dynamic";
+
 import { SubmissionsTable } from "@/components/admin/submissions-table";
 import { getSubmissions } from "@/lib/queries/admin";
 
